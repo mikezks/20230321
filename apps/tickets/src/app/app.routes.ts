@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { ConfigService } from '@flight-demo/shared/util-config';
 import { AboutComponent } from './about/about.component';
+import { authGuard } from './auth.config';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
@@ -24,6 +25,7 @@ export const APP_ROUTES: Routes = [
     children: [
       {
         path: 'flight-booking',
+        canMatch: [authGuard],
         loadChildren: () =>
           import('@flight-demo/tickets/feature-booking').then(
             (m) => m.FLIGHT_BOOKING_ROUTES

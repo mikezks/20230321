@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.config';
 
 @Component({
   selector: 'app-home',
@@ -8,4 +9,14 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {}
+export class HomeComponent {
+  #authService = inject(AuthService);
+
+  get username(): string {
+    return this.#authService.username;
+  }
+
+  toggleLogin(): void {
+    this.username ? this.#authService.logout() : this.#authService.login();
+  }
+}

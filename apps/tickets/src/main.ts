@@ -7,13 +7,20 @@ import {
   provideRouter,
   withPreloading,
 } from '@angular/router';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { AppComponent } from './app/app.component';
 import { APP_ROUTES } from './app/app.routes';
+import { provideOAuthSetup } from './app/auth.config';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(),
-    provideRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
+    provideRouter(
+      APP_ROUTES,
+      withPreloading(PreloadAllModules)
+    ),
     importProvidersFrom(MatDialogModule),
+    provideOAuthClient(),
+    provideOAuthSetup()
   ],
 });
