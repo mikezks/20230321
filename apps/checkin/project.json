@@ -9,13 +9,21 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/checkin",
+        "outputPath": "dist/apps/app-checkin",
         "index": "apps/checkin/src/index.html",
         "main": "apps/checkin/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/checkin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/checkin/src/favicon.ico", "apps/checkin/src/assets"],
+        "assets": [
+          "apps/checkin/src/favicon.ico",
+          "apps/checkin/src/assets",
+          {
+            "glob": ".deployment",
+            "input": "apps/checkin",
+            "output": "/"
+          }
+        ],
         "styles": ["apps/checkin/src/styles.scss"],
         "scripts": []
       },

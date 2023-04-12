@@ -9,12 +9,20 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
-        "outputPath": "dist/apps/tickets",
+        "outputPath": "dist/apps/shell-tickets",
         "index": "apps/tickets/src/index.html",
         "main": "apps/tickets/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/tickets/tsconfig.app.json",
-        "assets": ["apps/tickets/src/favicon.ico", "apps/tickets/src/assets"],
+        "assets": [
+          "apps/tickets/src/favicon.ico",
+          "apps/tickets/src/assets",
+          {
+            "glob": ".deployment",
+            "input": "apps/tickets",
+            "output": "/"
+          }
+        ],
         "styles": [
           "@angular/material/prebuilt-themes/indigo-pink.css",
           "node_modules/@angular-architects/paper-design/assets/css/bootstrap.css",
