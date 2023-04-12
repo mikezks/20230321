@@ -10,7 +10,7 @@ import {
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { AppComponent } from './app/app.component';
 import { APP_ROUTES } from './app/app.routes';
-import { provideOAuthSetup } from './app/auth.config';
+import { provideOAuthSetup, providePrefixOAuthStorage } from './app/auth.config';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,6 +21,7 @@ bootstrapApplication(AppComponent, {
     ),
     importProvidersFrom(MatDialogModule),
     provideOAuthClient(),
-    provideOAuthSetup()
+    provideOAuthSetup(),
+    providePrefixOAuthStorage('shell')
   ],
 });

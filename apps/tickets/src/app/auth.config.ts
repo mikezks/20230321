@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, EnvironmentProviders, makeEnvironmentProviders, inject, Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
   issuer: 'https://login.microsoftonline.com/<your tenant id>/v2.0',
@@ -17,6 +17,7 @@ export function provideOAuthSetup(): EnvironmentProviders {
     useFactory: (oauthService = inject(OAuthService)) => async () => {
       oauthService.configure(authConfig);
       await oauthService.loadDiscoveryDocumentAndTryLogin();
+      oauthService.setupAutomaticSilentRefresh();
       console.log(
         oauthService.getIdentityClaims(),
         oauthService.getGrantedScopes()
@@ -54,6 +55,22 @@ export class AuthService {
 
 export function authGuard(): UrlTree | boolean {
   return inject(AuthService).isAllowed() || inject(Router).createUrlTree(['/home']);
+}
+
+export function providePrefixOAuthStorage(appKey = 'shell'): EnvironmentProviders {
+  return makeEnvironmentProviders([{
+    provide: OAuthStorage,
+    useValue: {
+      getItem: (key: string): string | null =>
+        sessionStorage.getItem(`${ appKey }-${ key }`),
+      removeItem: (key: string): void => {
+        sessionStorage.removeItem(`${ appKey }-${ key }`);
+      },
+      setItem: (key: string, data: string): void => {
+        sessionStorage.setItem(`${ appKey }-${ key }`, data);
+      }
+    } as OAuthStorage
+  }]);
 }
 
 /* const isAllowed = signal(false);
