@@ -21,6 +21,11 @@
             "glob": ".deployment",
             "input": "apps/tickets",
             "output": "/"
+          },
+          {
+            "glob": "web.config",
+            "input": "apps/tickets",
+            "output": "/"
           }
         ],
         "styles": [
