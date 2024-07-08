@@ -7,7 +7,7 @@ export const authConfig: AuthConfig = {
   redirectUri: window.location.origin + '/flight-booking/flight-search',
   clientId: 'your app id',
   responseType: 'code',
-  scope: 'openid profile email offline_access',
+  scope: 'openid profile email offline_access https://graph.microsoft.com/User.Read',
   strictDiscoveryDocumentValidation: false
 };
 
@@ -34,7 +34,6 @@ export class AuthService {
   #oauthService = inject(OAuthService);
 
   get username(): string {
-
     const claims = this.#oauthService.getIdentityClaims();
     return claims ? claims['name'] : null;
   }
@@ -49,7 +48,7 @@ export class AuthService {
 
   isAllowed(): boolean {
     return (this.#oauthService.getGrantedScopes() as string[])
-      ?.includes('User.Read');
+      ?.includes('https://graph.microsoft.com/User.Read');
   }
 }
 

@@ -2,6 +2,7 @@
   <div class="card-body nav">
     <a routerLink="./flight-search" class="mr5">Select Flight</a> |
     <a routerLink="./passenger-search" class="ml5">Select Passenger</a>
+    <img [src]="userPic$ | async" class="userpic">
   </div>
 </div>
 <div class="secondary-content">
