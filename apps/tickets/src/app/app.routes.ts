@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { ConfigService } from '@flight-demo/shared/util-config';
 import { AboutComponent } from './about/about.component';
-import { authGuard } from './auth.config';
+import { authGuard } from './auth.provider';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 

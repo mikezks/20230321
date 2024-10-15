@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth.config';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../auth.provider';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +10,13 @@ import { AuthService } from '../auth.config';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  #authService = inject(AuthService);
+  private authService = inject(AuthService);
 
   get username(): string {
-    return this.#authService.username;
+    return this.authService.username;
   }
 
   toggleLogin(): void {
-    this.username ? this.#authService.logout() : this.#authService.login();
+    this.username ? this.authService.logout() : this.authService.login();
   }
 }
